@@ -85,7 +85,7 @@ class _DragAndDropTreeViewState extends State<DragAndDropTreeView> {
     populateExampleTree(root);
 
     treeController = TreeController<Node>(
-      roots: root.children,
+      root: root,
       childrenProvider: (Node node) => node.children,
 
       // The parentProvider is extremely important when automatically expanding

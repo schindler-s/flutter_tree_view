@@ -85,7 +85,7 @@ class _FilterableTreeViewState extends State<FilterableTreeView> {
     populateExampleTree(root);
 
     treeController = TreeController<Node>(
-      roots: root.children,
+      root: root,
       childrenProvider: getChildren,
     )..expandAll();
 

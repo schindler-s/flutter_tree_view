@@ -32,7 +32,7 @@ class _MinimalTreeViewState extends State<MinimalTreeView> {
     });
 
     treeController = TreeController<Node>(
-      roots: root.children,
+      root: root,
       childrenProvider: (Node node) => node.children,
     );
   }

@@ -98,7 +98,7 @@ class _LazyLoadingTreeViewState extends State<LazyLoadingTreeView> {
   void initState() {
     super.initState();
     treeController = TreeController<Data>(
-      roots: childrenProvider(Data.root),
+      root: Data.root,
       childrenProvider: childrenProvider,
     );
   }

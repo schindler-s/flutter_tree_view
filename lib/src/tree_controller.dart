@@ -97,11 +97,11 @@ class TreeController<T extends Object> with ChangeNotifier {
   /// [TreeController.parentProvider] is set to a callback that always returns
   /// null.
   TreeController({
-    required Iterable<T> roots,
+    required T root,
     required this.childrenProvider,
     ParentProvider<T>? parentProvider,
     this.defaultExpansionState = false,
-  }) : _roots = roots {
+  }) : _root = root {
     assert(() {
       _debugHasParentProvider = parentProvider != null;
       return true;
@@ -112,11 +112,16 @@ class TreeController<T extends Object> with ChangeNotifier {
   /// The roots of the tree.
   ///
   /// These nodes are used as a starting point when traversing the tree.
-  Iterable<T> get roots => _roots;
-  Iterable<T> _roots;
-  set roots(Iterable<T> nodes) {
-    if (nodes == _roots) return;
-    _roots = nodes;
+  Iterable<T> get roots => childrenProvider(root);
+
+  /// The root of the tree.
+  ///
+  /// This node is used as a starting point when traversing the tree.
+  T get root => _root;
+  T _root;
+  set root(T node) {
+    if (node == _root) return;
+    _root = node;
     rebuild();
   }
 
@@ -615,7 +620,6 @@ class TreeController<T extends Object> with ChangeNotifier {
 
   @override
   void dispose() {
-    _roots = const Iterable.empty();
     toggledNodes.clear();
     super.dispose();
   }
