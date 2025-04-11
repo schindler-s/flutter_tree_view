@@ -152,6 +152,7 @@ class IndentGuide {
     PathModifier? pathModifier,
     bool roundCorners,
     bool connectBranches,
+    double? fixedVerticalOffset,
   }) = ConnectingLinesGuide;
 
   /// Convenient constructor to create a [ScopingLinesGuide].
@@ -522,6 +523,7 @@ class ConnectingLinesGuide extends AbstractLineGuide {
     super.pathModifier,
     this.roundCorners = false,
     this.connectBranches = false,
+    this.fixedVerticalOffset,
   });
 
   /// Decides if the connection between vertical and horizontal lines should be
@@ -542,6 +544,9 @@ class ConnectingLinesGuide extends AbstractLineGuide {
   ///
   /// Defaults to `false`.
   final bool connectBranches;
+
+  /// TODO
+  final double? fixedVerticalOffset;
 
   @override
   CustomPainter createPainter(BuildContext context, TreeEntry<Object> entry) {
@@ -567,6 +572,7 @@ class ConnectingLinesGuide extends AbstractLineGuide {
     PathModifier? Function()? pathModifier,
     bool? roundCorners,
     bool? connectBranches,
+    double? fixedVerticalOffset,
   }) {
     return ConnectingLinesGuide(
       indent: indent ?? this.indent,
@@ -580,6 +586,7 @@ class ConnectingLinesGuide extends AbstractLineGuide {
       pathModifier: pathModifier != null ? pathModifier() : this.pathModifier,
       roundCorners: roundCorners ?? this.roundCorners,
       connectBranches: connectBranches ?? this.connectBranches,
+      fixedVerticalOffset: fixedVerticalOffset ?? fixedVerticalOffset,
     );
   }
 
@@ -671,7 +678,7 @@ class _ConnectingLinesPainter extends CustomPainter {
     }
 
     // Add connections
-    final double y = size.height * 0.5;
+    final double y = guide.fixedVerticalOffset ?? size.height * 0.5;
     path.moveTo(connectionStart, 0.0);
 
     if (guide.roundCorners) {
